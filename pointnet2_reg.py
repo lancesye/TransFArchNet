@@ -5,7 +5,7 @@ import torch.nn.functional as F
 import numpy as np
 from torchsummary import summary
 # from model.
-from model.pointnet2_utils import PointNetSetAbstraction,PointNetFeaturePropagation,index_points
+from pointnet2_utils import PointNetSetAbstraction,PointNetFeaturePropagation,index_points
 
 class STN3d(nn.Module):
     def __init__(self, channel):

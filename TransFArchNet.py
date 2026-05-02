@@ -4,20 +4,13 @@ import torch.nn.functional as F
 import numpy as np
 from timm.models.layers import trunc_normal_
 import sys
-sys.path.append("../utils")
-sys.path.append("..")
-sys.path.append("./")
-# from checkpoint import get_missing_parameters_message, get_unexpected_parameters_message
-from utils.checkpoint import get_missing_parameters_message, get_unexpected_parameters_message
+
 import random
-from extensions.chamfer_dist import ChamferDistanceL2
-# from pointnet2_utils import PointNetFeaturePropagation_
 from pointnet2_utils import PointNetFeaturePropagation_
-from utils.logger import *
-# from modules import *
-from .modules import *
+
 # Hierarchical Encoder
 from pointnet2_utils import PointNetSetAbstraction,PointNetFeaturePropagation,index_points
+from modules import *
 
 class H_Encoder_seg(nn.Module):
 
@@ -242,18 +235,8 @@ class TransFArchNet(nn.Module):
     def load_model_from_ckpt(self, ckpt_path):
         state_dict = torch.load(ckpt_path)
         incompatible = self.load_state_dict(state_dict, strict=False)
-        if incompatible.missing_keys:
-            print_log('missing_keys', logger='Point_M2AE_face')
-            print_log(
-                get_missing_parameters_message(incompatible.missing_keys),
-                logger='Point_M2AE_face'
-            )
-        if incompatible.unexpected_keys:
-            print_log('unexpected_keys', logger='Point_M2AE_face')
-            print_log(
-                get_unexpected_parameters_message(incompatible.unexpected_keys),
-                logger='Point_M2AE_face'
-            )
+        print("incompatible.missing_keys:",incompatible.missing_keys)
+        print("incompatible.unexpected_keys:",incompatible.unexpected_keys)
 
     def _init_weights(self, m):
         if isinstance(m, nn.Linear):
