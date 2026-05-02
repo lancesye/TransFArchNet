@@ -1,5 +1,3 @@
-您说得对，我之前遗漏了部分注释内容。以下是完整的修正版 README.md：
-
 ```markdown
 # TransFArchNet
 
